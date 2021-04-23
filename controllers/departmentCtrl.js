@@ -29,6 +29,7 @@ let getDepartmentById = function(req, res){
       res.send(rows[0]);
     }
   })
+}
 
 // GET // dept managers by first name, last name, id, dates active
 let getDepartmentManagers = function (req, res) {
