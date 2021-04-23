@@ -32,20 +32,37 @@ let getDepartmentById = function(req, res){
 }
 
 // GET // dept managers by first name, last name, id, dates active
-let getDepartmentManagers = function (req, res) {
-  console.log("Inside the GET Dept managers by FN, LN, ID and DA ")
+let getDepartmentManagers = function(req, res){
+  console.log("Inside the GET Dept managers by FN, LN, ID and DA", req.params)
   //.join(table,relation[,direction])
   let sql = `SELECT
-employees.emp_no,
-employees.first_name,
-employees.last_name,
-dept_manager.from_date,
-dept_manager.to_date
-FROM dept_manager
-JOIN employees
-ON dept_manager.emp_no = employees.emp_no
-WHERE dept_manager.dept_no = ?
-ORDER BY dept_manager.from_date ASC;`
+  employees.emp_no,
+  employees.first_name,
+  employees.last_name,
+  dept_manager.from_date,
+  dept_manager.to_date
+  FROM dept_manager
+  JOIN employees
+  ON dept_manager.emp_no = employees.emp_no
+  WHERE dept_manager.dept_no = ?
+  ORDER BY dept_manager.from_date ASC;`
+
+  let idToLookFor = req.params.id
+  let params = []
+  params.push(idToLookFor);
+
+  connection.query(sql, params, function(error, rows){
+    if (error) {
+      console.error("Error getting manager info from dept id. Error: ", error);
+      res.sendStatus(500);
+    } else if (rows.length === 0) {
+      console.error("No managers in department or department doesn't exits. Error: ", error);
+      res.sendStatus(404);
+    } else {
+      res.json(rows);
+    }
+
+  })
 
 };
 
