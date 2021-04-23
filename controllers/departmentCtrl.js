@@ -22,8 +22,17 @@ let sql = "SELECT * FROM departments, WHERE id = ?"
 let getDepartmentManagers = function(req, res){
 console.log("Inside the GET Dept managers by FN, LN, ID and DA ")
 //.join(table,relation[,direction])
-"SELECT "
-let sql = "SELECT employee firstname, lastname, id dates active FROM managers WHERE department id =?"
+let sql = `SELECT
+employees.emp_no,
+employees.first_name,
+employees.last_name,
+dept_manager.from_date,
+dept_manager.to_date
+FROM dept_manager
+JOIN employees
+ON dept_manager.emp_no = employees.emp_no
+WHERE dept_manager.dept_no = ?
+ORDER BY dept_manager.from_date ASC;`
 
 };
 
@@ -32,7 +41,17 @@ let getDepartmentEmployees = function(req, res){
 console.log("Inside the GET Dept employees by ID ")
 
 //.join(table,relation[,direction])
-let sql = "SELECT employees, FROM deparments WHERE department id =?"
+let sql = `SELECT
+employees.emp_no,
+employees.first_name,
+employees.last_name,
+dept_emp.from_date,
+dept_emp.to_date
+FROM dept_emp
+JOIN employees
+ON dept_emp.emp_no = employees.emp_no
+WHERE dept_emp.dept_no = 'd002'
+ORDER BY dept_emp.from_date ASC;`
 
 };
 
