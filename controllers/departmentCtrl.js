@@ -14,13 +14,22 @@ let getDepartments = function (req, res) {
 };
 
 // GET // list of department by ID
-let getDepartmentById = function (req, res) {
-  console.log("Inside the GET Departments by ID ")
+let getDepartmentById = function(req, res){
+  console.log("Inside the GET Departments by ID ", req.params)
+  let id = req.params.id
   let sql = "SELECT * FROM departments, WHERE id = ?"
-
-
-};
-
+  connections.query(sql, [id], (error, rows) => {
+    console.log("ROWS:", rows)
+    if(error){
+      console.error("failed to query the db", error);
+      res.sendStatus(500);
+    }else if (!rows || rows.length == 0){
+      res.sendStatus(404);
+    }else {
+      res.send(rows[0]);
+    }
+  })
+}
 
 // GET // dept managers by first name, last name, id, dates active
 let getDepartmentManagers = function (req, res) {
