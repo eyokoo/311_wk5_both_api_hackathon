@@ -17,8 +17,8 @@ let getDepartments = function (req, res) {
 let getDepartmentById = function(req, res){
   console.log("Inside the GET Departments by ID ", req.params)
   let id = req.params.id
-  let sql = "SELECT * FROM departments, WHERE id = ?"
-  connections.query(sql, [id], (error, rows) => {
+  let sql = "SELECT * FROM departments WHERE dept_no = ?"
+  connection.query(sql, [id], (error, rows) => {
     console.log("ROWS:", rows)
     if(error){
       console.error("failed to query the db", error);
