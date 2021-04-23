@@ -50,9 +50,22 @@ dept_emp.to_date
 FROM dept_emp
 JOIN employees
 ON dept_emp.emp_no = employees.emp_no
-WHERE dept_emp.dept_no = 'd002'
+WHERE dept_emp.dept_no = ?
 ORDER BY dept_emp.from_date ASC;`
 
+let params = [];
+params.push(req.params.id);
+
+connection.query(sql, params, function(error, rows){
+  if(error){
+    console.error('Error when getting dpt employees', error);
+    res.sendStatus(500)
+  } else if (rows.length == 0) {
+    console.error('Dept has no employees or Dept does not exist')
+    res.sendStatus(404)
+  }
+  res.json(rows);
+})
 };
 
 
