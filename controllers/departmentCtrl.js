@@ -31,7 +31,9 @@ let getDepartmentById = function(req, res){
   })
 }
 
+
 // GET // dept managers by first name, last name, id, dates active // BEN
+
 let getDepartmentManagers = function(req, res){
   console.log("Inside the GET Dept managers by FN, LN, ID and DA", req.params)
   //.join(table,relation[,direction])
@@ -61,7 +63,7 @@ let getDepartmentManagers = function(req, res){
     } else {
       res.json(rows);
     }
-    
+
   })
 
 };
