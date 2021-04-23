@@ -1,6 +1,6 @@
 const connection = require("../sql/connection");
 
-// GET // list of departments 
+// GET // list of departments // EMI
 let getDepartments = function (req, res) {
   console.log("Inside the GET - Departments", req.params)
   connection.query("SELECT * FROM departments", function (error, rows) {
@@ -13,7 +13,7 @@ let getDepartments = function (req, res) {
   })
 };
 
-// GET // list of department by ID
+// GET // list of department by ID // MENG
 let getDepartmentById = function(req, res){
   console.log("Inside the GET Departments by ID ", req.params)
   let id = req.params.id
@@ -31,7 +31,7 @@ let getDepartmentById = function(req, res){
   })
 }
 
-// GET // dept managers by first name, last name, id, dates active
+// GET // dept managers by first name, last name, id, dates active // BEN
 let getDepartmentManagers = function(req, res){
   console.log("Inside the GET Dept managers by FN, LN, ID and DA", req.params)
   //.join(table,relation[,direction])
@@ -61,12 +61,12 @@ let getDepartmentManagers = function(req, res){
     } else {
       res.json(rows);
     }
-
+    
   })
 
 };
 
-//GET//  dept employees by dept ID
+//GET//  dept employees by dept ID // GILES
 let getDepartmentEmployees = function (req, res) {
   console.log("Inside the GET Dept employees by ID ")
 
