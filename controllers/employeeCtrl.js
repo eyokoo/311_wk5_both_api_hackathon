@@ -21,7 +21,7 @@ connection.query(sql, [id], (error, rows) => {
 //GET// employee by firstname 
 let getEmployeesByName = function(req, res){
 console.log("Inside the GET employee by firstname")
-let firstname = req.params.firstname
+let firstname = req.params.firstName
 
 let sql = "SELECT * FROM employees WHERE first_name = ?"
 connection.query(sql, [firstname], (error, rows) => {
