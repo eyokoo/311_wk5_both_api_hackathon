@@ -3,7 +3,7 @@ const connection = require("../sql/connection");
 let getEmployee = function(req, res){;
 console.log("Inside the GET employee by ID ")
 let id = req.params.id
-let sql = "SELECT * FROM employee WHERE ID =?"
+let sql = "SELECT * FROM employees WHERE emp_no =?"
 connection.query(sql, [id], (error, rows) => {
   console.log("ROWS:", rows)
   if(error){
@@ -23,7 +23,7 @@ let getEmployeesByName = function(req, res){
 console.log("Inside the GET employee by firstname")
 let firstname = req.params.firstname
 
-let sql = "SELECT * FROM employee WHERE firstname =?"
+let sql = "SELECT * FROM employees WHERE first_name = ?"
 connection.query(sql, [firstname], (error, rows) => {
   console.log("ROWS:", rows)
   if(error){

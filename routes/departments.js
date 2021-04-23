@@ -8,6 +8,6 @@ router.get("/departments/:id", controller.getDepartmentById);
 
 router.get("/departments/:id/managers", controller.getDepartmentManagers);
 
-router.get("/department/:id/employees", controller.getDepartmentEmployees);
+router.get("/departments/:id/employees", controller.getDepartmentEmployees);
 
 module.exports = router;
