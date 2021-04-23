@@ -4,6 +4,6 @@ const controller = require("../controllers/employeeCtrl");
 
 router.get("/employee/:id", controller.getEmployee);
 
-router.get("/employee/:firstName", controller.getEmployeesByName);
+router.get("/employee/name/:firstName", controller.getEmployeesByName);
 
 module.exports = router;
