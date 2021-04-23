@@ -1,64 +1,51 @@
 const connection = require("../sql/connection");
 
 // GET // list of departments 
-let getDepartments = function(){
-console.log("Inside the GET - Departments ")
-connections.query("SELECT * FROM departments", function (error, rows) {
-
-})
-
+let getDepartments = function (req, res) {
+  console.log("Inside the GET - Departments", req.params)
+  connection.query("SELECT * FROM departments", function (error, rows) {
+    if (error) {
+      console.log("Error - when getting department list", error)
+      res.sendStatus(500)
+    } else {
+      res.json(rows)
+    }
+  })
 };
 
 // GET // list of department by ID
-let getDepartmentById = function(req, res){
-console.log("Inside the GET Departments by ID ")
-let sql = "SELECT * FROM departments, WHERE id = ?"
+let getDepartmentById = function (req, res) {
+  console.log("Inside the GET Departments by ID ")
+  let sql = "SELECT * FROM departments, WHERE id = ?"
 
 
 };
 
 
 // GET // dept managers by first name, last name, id, dates active
-let getDepartmentManagers = function(req, res){
-  console.log("Inside the GET Dept managers by FN, LN, ID and DA", req.params)
+let getDepartmentManagers = function (req, res) {
+  console.log("Inside the GET Dept managers by FN, LN, ID and DA ")
   //.join(table,relation[,direction])
   let sql = `SELECT
-  employees.emp_no,
-  employees.first_name,
-  employees.last_name,
-  dept_manager.from_date,
-  dept_manager.to_date
-  FROM dept_manager
-  JOIN employees
-  ON dept_manager.emp_no = employees.emp_no
-  WHERE dept_manager.dept_no = ?
-  ORDER BY dept_manager.from_date ASC;`
-
-  let idToLookFor = req.params.id
-  let params = []
-  params.push(idToLookFor);
-
-  connection.query(sql, params, function(error, rows){
-    if (error) {
-      console.error("Error getting manager info from dept id. Error: ", error);
-      res.sendStatus(500);
-    } else if (rows.length === 0) {
-      console.error("No managers in department or department doesn't exits. Error: ", error);
-      res.sendStatus(404);
-    } else {
-      res.json(rows);
-    }
-
-  })
+employees.emp_no,
+employees.first_name,
+employees.last_name,
+dept_manager.from_date,
+dept_manager.to_date
+FROM dept_manager
+JOIN employees
+ON dept_manager.emp_no = employees.emp_no
+WHERE dept_manager.dept_no = ?
+ORDER BY dept_manager.from_date ASC;`
 
 };
 
 //GET//  dept employees by dept ID
-let getDepartmentEmployees = function(req, res){
-console.log("Inside the GET Dept employees by ID ")
+let getDepartmentEmployees = function (req, res) {
+  console.log("Inside the GET Dept employees by ID ")
 
-//.join(table,relation[,direction])
-let sql = `SELECT
+  //.join(table,relation[,direction])
+  let sql = `SELECT
 employees.emp_no,
 employees.first_name,
 employees.last_name,
@@ -86,4 +73,4 @@ connection.query(sql, params, function(error, rows){
 };
 
 
-module.exports = {getDepartments, getDepartmentById, getDepartmentManagers, getDepartmentEmployees};
+module.exports = { getDepartments, getDepartmentById, getDepartmentManagers, getDepartmentEmployees };
