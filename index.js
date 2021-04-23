@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 app.use(require("./routes/departments"));
-// app.use(require("./routes/employees"));
+app.use(require("./routes/employees"));
 
 const port = 4000;
 
